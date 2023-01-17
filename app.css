@@ -73,7 +73,7 @@ p {
 
 
 .playing-field {
-    height: 450px;
+    height: 380px;
     width: 70%;
     margin: auto;
     padding: 2%;
@@ -147,7 +147,7 @@ p {
 
 .button:hover {
     cursor: pointer;
-    background-color: #D16666;
+    background-color: #d9626b;
 }
 
 .button:active {

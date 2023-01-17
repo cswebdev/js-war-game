@@ -1,23 +1,39 @@
-// export at the bottom
-// random number generator between
-// creates 52 cards. Pull values from card.js
-//
-export default function Deck(
-  suits = ["clubs", "diamonds", "hearts", "spades"],
-  values = ["ace", 2, 2, 3, 4, 5, 6, 7, 8, 9, "jack", "king", "queen"]
-) {
-  this.deck = [];
-  this.suits = suits;
-  this.values = values;
-  for (let suit in suits) {
-    for (let value in values) {
-      this.deck.push(`${values[value]} of ${suits[suit]}`);
-    }
-  }
-}
-const deckOne = new Deck();
-const deckTwo = new Deck();
-console.log(deckOne.Deck);
-console.log(deckTwo.Deck);
+import Card from "./card.js"; // import the Card constructor
 
-console.log(this);
+// define a constructor for the deck
+function Deck() {
+   this.cards = [];
+   const suits = ["hearts", "diamonds", "clubs", "spades"];
+   const values = [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "J",
+      "Q",
+      "K",
+      "A",
+   ];
+
+   for (let i = 0; i < suits.length; i++) {
+      for (let j = 0; j < values.length; j++) {
+         this.cards.push(new Card(suits[i], values[j]));
+      }
+   }
+
+   this.shuffle = function () {
+      for (let i = this.cards.length - 1; i > 0; i--) {
+         let j = Math.floor(Math.random() * (i + 1));
+         [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+      }
+   };
+}
+
+export default Deck;
+
+// export the deck constructor as the default export

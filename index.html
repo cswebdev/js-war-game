@@ -16,37 +16,40 @@
 <body>
     <section id="top-banner">
         <h1>war</h1>
-        <button class="button" id="play-button">
-            <p>play game</p>
-        </button>
+        <button class="button play-button" id="play-button">Start Game</button>
     </section>
 
     <section id="score-container">
         <div id="result-container">
+            <!-- game results -->
             <div id="player-one-results">
+                <h2>Napoleon</h2>
                 <h2>[winner]</h2>
             </div>
             <div id="player-two-results">
+                <h2>Player One</h2>
                 <h2>[loser]</h2>
             </div>
         </div>
+        <!-- Player Score -->
         <section id="player-score">
             <div id="player-one-score">100</div>
-            <div id="player-two-score">101</div>
+            <div id="player-two-score">100</div>
+        </section>
+        <!-- card counter -->
+        <section id="card-counter">
+            <div id="player-one-card-counter"></div>
+            <div id="player-two-card-counter"></div>
         </section>
     </section>
     <section class="playing-field">
         <!-- player 1 -->
-        <!-- <div class="card-container"> -->
-        <!-- all variations of the card suites and colors -->
         <div class="card" id="player-one-deck">
             <p>1</p>
             <div class="card-face-front"></div>
             <div class="card-face-back"></div>
         </div>
         <!-- player two -->
-        <!-- <div class="card-container"> -->
-        <!-- all variations of the card suites and colors -->
         <div class="card" id="player-two-deck">
             <p>2</p>
             <div class="card-face-front"></div>
@@ -58,19 +61,10 @@
         <button class="button button-draw" id="player-one-button">
             <p>draw</p>
         </button>
-        <!-- <button class="button" id="play-button">
-            <p>play game</p>
-        </button> -->
     </section>
 
-
-
-
-
     <footer>
-
     </footer>
-
 
     <script src="styles/main.js"></script>
 </body>
