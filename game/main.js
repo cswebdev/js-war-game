@@ -1,29 +1,24 @@
-import Card from "./card";
-import Deck from "./deck";
-import Game from "./game";
-import Players from "./players";
+import Cards from "./card.js";
+import Deck from "./deck.js";
+import Player from "./player.js";
+import Game from "./game.js";
 
-const game = new Game();
+const playGame = document.getElementById("play-button");
+const drawCard = document.getElementById("player-one-button");
 
-document.getElementById("start-button").addEventListener("click", game.start);
-document.getElementById("draw-button").addEventListener("click", game.draw);
-
-function updateWinner(winner) {
-   document.getElementById("winner").innerHTML = `Winner: ${winner}`;
+function gameStart(event) {
+   const game = new Game();
+   game.play();
 }
 
-function updateScore(score) {
-   document.getElementById("score").innerHTML = `Score: ${score}`;
+playGame.addEventListener("click", gameStart);
+console.log("you pressed the button");
+
+function getCard(event) {
+   const draw = new Game();
+   draw.draw();
+   console.log(draw);
 }
 
-function updateCardCounter(counter) {
-   document.getElementById(
-      "card-counter"
-   ).innerHTML = `Cards Drawn: ${counter}`;
-}
-
-function updateGamesWonCounter(counter) {
-   document.getElementById(
-      "games-won-counter"
-   ).innerHTML = `Games Won: ${counter}`;
-}
+drawCard.addEventListener("click", getCard);
+console.log("you pressed draw");

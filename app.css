@@ -22,6 +22,15 @@ body {
     justify-content: center;
 }
 
+#play-button {
+    flex: 1;
+    margin: 1px 50% 10px 43.15%;
+    justify-content: center;
+    padding: 15px;
+
+    font-family: 'Press Start 2P', cursive;
+}
+
 h1 {
 
     font-size: 15em;
@@ -116,16 +125,12 @@ p {
 
 
 
-#play-button {
-    flex: 1;
-    margin: 1px 50% 10px 43.15%;
-    justify-content: center;
-
-
-}
 
 #player-one-button {
     margin: auto;
+    padding: auto;
+    font-weight: bold;
+    font-size: 35px
 }
 
 /* button tutorial - (https://www.youtube.com/watch?v=3Z_3DUiycCg&t=86s&ab_channel=NanouuChannel%E2%AD%90)   */
@@ -134,6 +139,7 @@ p {
     margin-top: 60px;
     font-size: 1.5em;
     font-family: 'Press Start 2P', cursive;
+    font-weight: bold;
     width: 200px;
     height: 80px;
     background: #FFAE03;
