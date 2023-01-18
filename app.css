@@ -70,6 +70,14 @@ p {
 
 }
 
+h2.winner {
+    color: green;
+}
+
+h2.loser {
+    color: red;
+}
+
 #player-score {
     display: flex;
     flex-direction: row;
@@ -80,6 +88,14 @@ p {
     letter-spacing: .5em;
 }
 
+#card-counter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 45px;
+    font-family: 'Press Start 2P', cursive;
+
+}
 
 .playing-field {
     height: 380px;

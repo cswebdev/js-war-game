@@ -13,6 +13,7 @@ function Game() {
    this.hand = [];
    this.pot = [];
    this.deck = new Deck();
+   this.deck.fillDeck();
    console.log("game start");
 }
 
@@ -23,8 +24,16 @@ Game.prototype.deal = function () {
    this.player2.hand = this.deck.cards.filter(function (card, index) {
       return index & 2;
    });
-   console.log(this.player1.hand);
-   console.log(this.player2.hand);
+   console.log(
+      this.player1.hand.map(function (card) {
+         return card.display();
+      })
+   );
+   console.log(
+      this.player2.hand.map(function (card) {
+         return card.display();
+      })
+   );
    this.player1.cardCount = 26;
    this.player2.cardCount = 26;
    console.log("cards delt");
@@ -66,7 +75,7 @@ Game.prototype.draw = function () {
 
 Game.prototype.play = function () {
    this.shuffle(this.deck);
-   this.deal;
+   this.deal();
 };
 
 export default Game;
