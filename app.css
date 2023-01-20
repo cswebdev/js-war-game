@@ -64,9 +64,27 @@ p {
 
 #result-container {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-evenly;
-    letter-spacing: .5em;
+    /* letter-spacing: .5em; */
 
+
+
+}
+
+#player-one-results {
+    font-size: 10px;
+    background-color: green;
+
+
+}
+
+#player-two-results {
+    font-size: 10px;
+    background-color: rgb(0, 47, 128);
+
+    height: 10px;
+    width: 250px;
 
 }
 
@@ -90,7 +108,7 @@ h2.loser {
 
 #card-counter {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-evenly;
     font-size: 45px;
     font-family: 'Press Start 2P', cursive;

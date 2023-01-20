@@ -1,49 +1,40 @@
-import Cards from "./card.js";
-import Deck from "./deck.js";
-import Player from "./player.js";
 import Game from "./game.js";
 
 let game;
-const playGame = document.getElementById("play-button");
+// const $startGame = document.getElementById("play-button");
 const drawCard = document.getElementById("player-one-button");
+const $display1 = document.getElementById("player-one-deck");
+const $display2 = document.getElementById("player-two-deck");
+const player1Results = document.getElementById("player-one-results");
+const player2Results = document.getElementById("player-two-results");
+const player1CardCounter = document.getElementById("player-one-card-counter");
+const player2CardCounter = document.getElementById("player-two-card-counter");
+const startButton = document.getElementById("play-button");
 
-function gameStart(event) {
-   game = new Game();
-   game.play();
-   document.getElementById("player-one-card-counter").innerHTML =
-      game.player1.hand.length;
-   document.getElementById("player-two-card-counter").innerHTML =
-      game.player2.hand.length;
-}
+startButton.addEventListener("click", function () {
+   let game = new Game(
+      player1Results,
+      player2Results,
+      player1CardCounter,
+      player2CardCounter
+   );
+   game.shuffle();
+   game.deal();
+});
 
-playGame.addEventListener("click", gameStart);
-console.log("you pressed the button");
-
-function getCard(event) {
-   const player1Card = game.player1.hand.shift();
-   const player2Card = game.player2.hand.shift();
-   console.log(player1Card);
-   console.log(player2Card);
-   // displays the cards in the HTMl
-   document.getElementById("player-one-deck").innerHTML = player1Card.display();
-   document.getElementById("player-two-deck").innerHTML = player2Card.display();
-
-   //card counter
-   document.getElementById("player-one-card-counter").innerHTML =
-      game.player1.hand.length;
-   document.getElementById("player-two-card-counter").innerHTML =
-      game.player2.hand.length;
-
-   //display winner
-   const player1Results = document.getElementById("player-one-results");
-   const player2Results = document.getElementById("player-two-results");
-   if (this.pot[0].value > this.pot[1].value) {
-      player1Results.getElementsByClassName("result")[0].innerHTML = "winner";
-      player2Results.getElementsByClassName("result")[0].innerHTML = "loser";
-      player1Results
-         .getElementsByClassName("result")[0]
-         .classList.add("winner");
+function getCardPlayer(event) {
+   while (this.player1.hand.length > 0 && this.player2.hand.length > 0) {
+      game.draw();
+      console.log(this.player1.hand);
    }
+   if (player1CardCounter <= 0 || player2CardCounter <= 0) {
+      return console.log("game over");
+   }
+
+   console.log("you pressed draw");
 }
-drawCard.addEventListener("click", getCard);
-console.log("you pressed draw");
+if (drawCard) {
+   drawCard.addEventListener("click", function () {
+      getCardPlayer.bind(game)();
+   });
+}

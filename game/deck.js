@@ -26,7 +26,7 @@ Deck.prototype.fillDeck = function () {
    for (let i = 0; i < suits.length; i++) {
       for (let j = 0; j < values.length; j++) {
          if (values[j] === "Ace") {
-            this.cards.push(new Card(1, suits[i]));
+            this.cards.push(new Card(14, suits[i]));
          } else if (values[j] === "King") {
             this.cards.push(new Card(13, suits[i]));
          } else if (values[j] === "Queen") {
