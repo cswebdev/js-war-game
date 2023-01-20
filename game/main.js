@@ -12,7 +12,7 @@ const player2CardCounter = document.getElementById("player-two-card-counter");
 const startButton = document.getElementById("play-button");
 
 startButton.addEventListener("click", function () {
-   let game = new Game(
+   game = new Game(
       player1Results,
       player2Results,
       player1CardCounter,
@@ -22,19 +22,23 @@ startButton.addEventListener("click", function () {
    game.deal();
 });
 
-function getCardPlayer(event) {
-   while (this.player1.hand.length > 0 && this.player2.hand.length > 0) {
-      game.draw();
-      console.log(this.player1.hand);
-   }
-   if (player1CardCounter <= 0 || player2CardCounter <= 0) {
-      return console.log("game over");
-   }
+// function getCardPlayer(event) {
+//    while (this.player1.hand.length > 0 && this.player2.hand.length > 0) {
+//       game.draw();
+//       console.log(this.player1.hand);
+//    }
+//    if (this.player1.hand.length <= 0 || this.player1.hand.le <= 0) {
+//       return console.log("game over");
+//    }
 
-   console.log("you pressed draw");
-}
-if (drawCard) {
-   drawCard.addEventListener("click", function () {
-      getCardPlayer.bind(game)();
-   });
-}
+//    console.log("you pressed draw");
+// }
+// if (drawCard) {
+//    drawCard.addEventListener("click", function () {
+//       getCardPlayer.bind(game)();
+//    });
+// }
+
+drawCard.addEventListener("click", function () {
+   game.draw();
+});
