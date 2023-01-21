@@ -39,6 +39,23 @@ startButton.addEventListener("click", function () {
 //    });
 // }
 
-drawCard.addEventListener("click", function () {
+drawCard.addEventListener("click", callDraw);
+
+function callDraw() {
+   console.log("step 1: you clicked draw");
    game.draw();
-});
+}
+
+Game.prototype.draw = function () {
+   //remove first card from players array
+
+   // const player1Card = this.player1.hand.shift(); //shift removes a value from an array
+   // const player2Card = this.player2.hand.shift();
+
+   // this.pot = [player1Card, player2Card, ...this.pot]; // pot is card pot. not bet pot
+   this.compare();
+   console.log("step 2: call sucessful");
+
+   // ** Removing the condition to add cards to the pot at this stage. **
+   // this.pot = [player1Card, player2Card, ...this.pot];
+};

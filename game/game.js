@@ -53,124 +53,84 @@ Game.prototype.deal = function () {
    console.log("cards delt");
 };
 
-//drawing cards
+Game.prototype.compare = function () {
+   // take the first item from each player's hand array
+   let player1Card = this.player1.hand.shift();
+   let player2Card = this.player2.hand.shift();
+   console.log("player 1's card: " + player1Card.value);
+   console.log("player 2's card: " + player2Card.value);
 
-// Game.prototype.draw = function () {
-//    //remove first card from array and add it to pot
+   // compare the cards' values
+   if (player1Card.value > player2Card.value) {
+      console.log("Player 1 won");
+      // add the winning card to the pot
+      this.player1.hand.push(player1Card, player2Card);
 
-//    // while (this.player1.hand.length > 0 && this.player2.hand.length > 0) {
-//    let player1Card = this.player1.hand.shift();
-//    let player2Card = this.player2.hand.shift();
-//    this.pot = [player1Card, player2Card, ...this.pot];
-//    console.log(player1Card);
-//    console.log(this.player1.hand);
-
-//    //update card counter
-//    // document.getElementById("player-one-card-counter").innerHTML =
-//    //    player1.hand;
-//    // document.getElementById("player-two-card-counter").innerHTML =
-//    //    player2.hand;
-//    // player1CardCounter.innerHTML = player1Card.hand.length;
-//    // player2CardCounter.innerHTML = player2Card.hand.length;
-//    // player1CardCounter.innerHTML = player1Card.display();
-//    // player2CardCounter.innerHTML = player2Card.display();
-//    // }
-//    this.compare();
-// };
-
-Game.prototype.draw = function () {
-   while (this.player1.hand.length > 0 && this.player2.hand.length > 0) {
-      //remove first card from array and add it to pot
-      let player1Card = this.player1.hand.shift();
-      let player2Card = this.player2.hand.shift();
-      this.pot = [player1Card, player2Card, ...this.pot];
-
-      //update card counter
-      document.getElementById("player-one-card-counter").innerHTML =
-         this.player1.hand.length;
-      document.getElementById("player-two-card-counter").innerHTML =
-         this.player2.hand.length;
-
-      //compare cards
-      this.compare();
+      // this.pot.push(player1Card);
+   } else if (player2Card.value > player1Card.value) {
+      console.log("Player 2 won");
+      // add the winning card to the pot
+      this.player2.hand.push(player1Card, player2Card);
+      // this.pot.push(player2Card);
+   } else {
+      console.log("It's a tie");
+      // handle tie scenario
+      this.pot = [...this.pot, player1Card, player2Card];
+      this.war();
    }
 
+   // update the card counters
+   document.getElementById("player-one-card-counter").innerHTML =
+      this.player1.hand.length;
+   document.getElementById("player-two-card-counter").innerHTML =
+      this.player2.hand.length;
+};
+
+Game.prototype.war = function () {
+   // credit to Eric
+   alert("war is running");
+   const player1WarCards = this.player1.hand.splice(0, 3);
+   const player2WarCards = this.player2.hand.splice(0, 3);
+
+   // How to put individual cards from the above array into pot
+   // this.pot = [
+   //    ...this.pot,
+   //    this.player1.hand.splice(0, 3),
+   //    this.player2.hand.splice(0, 3),
+   // ];
+
+   this.pot = this.pot.concat(player1WarCards, player2WarCards);
+   console.log(this.pot);
+   // console.log(this.player1.hand.length, this.player2.hand.length);
+
+   if (player1WarCards[2] === player2WarCards[2]) {
+      // console.log("player1 war hand: " + player1Card);
+      // console.log("player2 war hand: " + player2Card);
+      console.log("tie again");
+      this.war();
+      // this.pot.push(player1Card, player2Card);
+   } else if (player1WarCards[2] > player2WarCards[2]) {
+      // console.log("player1 war hand: " + player1Card);
+      // console.log("player2 war hand: " + player2Card);
+      console.log("player 1 wins war");
+      console.log(this.player1.hand.length);
+      console.log(this.pot);
+      // console.log(player1.hand.push(this.pot));
+      // this.pot =[];
+
+      this.player1.hand.push(...this.pot, player1Card, player2Card);
+   } else {
+      // console.log("player1 war hand: " + player1Card);
+      // console.log("player2 war hand: " + player2Card);
+      console.log("player 2 wins war");
+      console.log(this.player2.hand.length);
+      console.log(this.pot);
+      this.player2.hand.push(...this.pot, player1Card, player2Card);
+   }
    if (this.player1.hand.length === 0) {
       console.log("Player 2 wins");
    } else if (this.player2.hand.length === 0) {
       console.log("Player 1 wins");
-   }
-};
-
-// Game.prototype.compare = function () {
-//    if (player1Card === player2Card) {
-//       this.war();
-//    } else if (player1Card > player2Card) {
-//       this.player1.hand.push(player1Card, player2Card);
-//       this.player1CardCounter.innerHTML = this.player1.hand.length;
-//       console.log("player 1 wins round", this.player1.hand.length);
-//    } else {
-//       this.player2.hand.push(player1Card, player2Card);
-//       this.player2CardCounter.innerHTML = this.player2.hand.length;
-//       console.log("player 2 wins round", this.player2.hand.length);
-//    }
-//    if (this.player1.hand.length === 52) {
-//       console.log("Player 1 wins");
-//    } else if (this.player2.hand.length === 52) {
-//       console.log("Player 2 wins");
-//    } else {
-//       if (this.player1.hand.length == 0) {
-//          player1Results.innerHTML = "Player 1 has no more cards";
-//       }
-//       if (this.player2.hand.length == 0) {
-//          player2Results.innerHTML = "Player 2 has no more cards";
-//       }
-//    }
-// };
-
-Game.prototype.compare = function () {
-   let player1Card = this.pot[0];
-   let player2Card = this.pot[1];
-   if (player1Card.value === player2Card.value) {
-      this.war();
-   } else if (player1Card.value > player2Card.value) {
-      this.player1.hand.push(player1Card, player2Card);
-      this.player1CardCounter.innerHTML = this.player1.hand.length;
-      console.log("player 1 wins round", this.player1.hand.length);
-   } else {
-      this.player2.hand.push(player1Card, player2Card);
-      this.player2CardCounter.innerHTML = this.player2.hand.length;
-      console.log("player 2 wins round", this.player2.hand.length);
-   }
-   this.pot = [];
-};
-
-Game.prototype.war = function () {
-   this.pot = [
-      this.player1.hand.shift(),
-      this.player1.hand.shift(),
-      this.player2.hand.shift(),
-      this.player2.hand.shift(),
-   ];
-   while (true) {
-      const player1Card = this.player1.hand.shift();
-      const player2Card = this.player2.hand.shift();
-      if (player1Card === player2Card) {
-         this.apot.push(player1Card, player2Card);
-      } else if (player1Card > player2Card) {
-         this.player1.hand.push(...this.pot, player1Card, player2Card);
-         break;
-      } else {
-         this.player2.hand.push(...this.pot, player1Card, player2Card);
-         break;
-      }
-      if (this.player1.hand.length === 0) {
-         console.log("Player 2 wins");
-         break;
-      } else if (this.player2.hand.length === 0) {
-         console.log("Player 1 wins");
-         break;
-      }
    }
 };
 
@@ -185,9 +145,9 @@ Game.prototype.shuffle = function () {
    console.log(this.deck);
 };
 
-Game.prototype.play = function () {
-   this.shuffle(this.deck);
-   this.deal();
-};
+// Game.prototype.play = function () {
+//    this.shuffle(this.deck);
+//    this.deal();
+// };
 
 export default Game;
