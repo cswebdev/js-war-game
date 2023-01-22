@@ -3,6 +3,8 @@ import Deck from "./deck.js";
 import Player from "./player.js";
 const player1Results = document.getElementById("player-one-results");
 const player2Results = document.getElementById("player-two-results");
+const player1Name = document.getElementById("player-one-name");
+const player2Name = document.getElementById("player-two-name");
 
 // setting player names
 function Game(
