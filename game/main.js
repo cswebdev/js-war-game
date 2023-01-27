@@ -22,27 +22,9 @@ startButton.addEventListener("click", function () {
    game.deal();
 });
 
-// function getCardPlayer(event) {
-//    while (this.player1.hand.length > 0 && this.player2.hand.length > 0) {
-//       game.draw();
-//       console.log(this.player1.hand);
-//    }
-//    if (this.player1.hand.length <= 0 || this.player1.hand.le <= 0) {
-//       return console.log("game over");
-//    }
-
-//    console.log("you pressed draw");
-// }
-// if (drawCard) {
-//    drawCard.addEventListener("click", function () {
-//       getCardPlayer.bind(game)();
-//    });
-// }
-
 drawCard.addEventListener("click", callDraw);
 
 function callDraw() {
-   console.log("step 1: you clicked draw");
    game.draw();
 }
 
@@ -54,8 +36,4 @@ Game.prototype.draw = function () {
 
    // this.pot = [player1Card, player2Card, ...this.pot]; // pot is card pot. not bet pot
    this.compare();
-   console.log("step 2: call sucessful");
-
-   // ** Removing the condition to add cards to the pot at this stage. **
-   // this.pot = [player1Card, player2Card, ...this.pot];
 };

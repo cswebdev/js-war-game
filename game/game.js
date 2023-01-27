@@ -5,6 +5,8 @@ const player1Results = document.getElementById("player-one-results");
 const player2Results = document.getElementById("player-two-results");
 const player1Name = document.getElementById("player-one-name");
 const player2Name = document.getElementById("player-two-name");
+const player1CardDisp = document.getElementById("card-face-front-1");
+const player2CardDisp = document.getElementById("card-face-front-2");
 
 // setting player names
 function Game(
@@ -61,16 +63,24 @@ Game.prototype.compare = function () {
    let player2Card = this.player2.hand.shift();
    console.log("player 1's card: " + player1Card.value);
    console.log("player 2's card: " + player2Card.value);
+   document.getElementById("card-face-front-1").innerHTML =
+      player1Card.display();
+   document.getElementById("card-face-front-2").innerHTML =
+      player2Card.display();
 
    // compare the cards' values
    if (player1Card.value > player2Card.value) {
       console.log("Player 1 won");
+      player1Results.innerHTML = `<p>You Won!</p>`;
+      player2Results.innerHTML = `<p>Napoleon Lost!</p>`;
       // add the winning card to the pot
       this.player1.hand.push(player1Card, player2Card);
 
       // this.pot.push(player1Card);
    } else if (player2Card.value > player1Card.value) {
       console.log("Player 2 won");
+      player2Results.innerHTML = `<p>Napoleon Won!</p>`;
+      player1Results.innerHTML = `<p>You Lost!</p>`;
       // add the winning card to the pot
       this.player2.hand.push(player1Card, player2Card);
       // this.pot.push(player2Card);
@@ -93,13 +103,6 @@ Game.prototype.war = function () {
    alert("war is running");
    const player1WarCards = this.player1.hand.splice(0, 3);
    const player2WarCards = this.player2.hand.splice(0, 3);
-
-   // How to put individual cards from the above array into pot
-   // this.pot = [
-   //    ...this.pot,
-   //    this.player1.hand.splice(0, 3),
-   //    this.player2.hand.splice(0, 3),
-   // ];
 
    this.pot = this.pot.concat(player1WarCards, player2WarCards);
    console.log(this.pot);
@@ -146,10 +149,5 @@ Game.prototype.shuffle = function () {
    }
    console.log(this.deck);
 };
-
-// Game.prototype.play = function () {
-//    this.shuffle(this.deck);
-//    this.deal();
-// };
 
 export default Game;
