@@ -30,6 +30,12 @@ function Game(
    this.deck.fillDeck();
    this.shuffle();
    console.log("game start");
+
+   if (player1CardCounter + player2CardCounter > 52) {
+      alert("More than 52 cards in total");
+   } else if (player1CardCounter + player2CardCounter < 52) {
+      alert("less than 52 cards in total");
+   }
 }
 // initial deal
 
@@ -86,6 +92,7 @@ Game.prototype.compare = function () {
       // this.pot.push(player2Card);
    } else {
       console.log("It's a tie");
+      alert("War");
       // handle tie scenario
       this.pot = [...this.pot, player1Card, player2Card];
       this.war();
@@ -98,45 +105,84 @@ Game.prototype.compare = function () {
       this.player2.hand.length;
 };
 
+// Game.prototype.war = function () {
+//    alert("war is running");
+//    const player1WarCards = this.player1.hand.splice(0, 3);
+//    const player2WarCards = this.player2.hand.splice(0, 3);
+
+//    this.pot = this.pot.concat(player1WarCards, player2WarCards);
+//    console.log(this.pot);
+//    // console.log(this.player1.hand.length, this.player2.hand.length);
+
+//    if (player1WarCards[2] === player2WarCards[2]) {
+//       // console.log("player1 war hand: " + this.player1Card);
+//       // console.log("player2 war hand: " + this.player2Card);
+//       console.log("tie again");
+//       this.war();
+//       // this.pot.push(player1Card, player2Card);
+//    } else if (player1WarCards[2] > player2WarCards[2]) {
+//       // console.log("player1 war hand: " + this.player1Card);
+//       // console.log("player2 war hand: " + this.player2Card);
+//       console.log("player 1 wins war");
+
+//       console.log(this.pot);
+//       //console.log(player1.hand.push(this.pot));
+//       //this.pot =[];
+
+//       this.player1.hand.push(...this.pot);
+//       console.log(this.player1.hand.length);
+//    } else {
+//       // console.log("player1 war hand: " + this.player1Card);
+//       // console.log("player2 war hand: " + this.player2Card);
+//       console.log("player 2 wins war");
+
+//       console.log(this.pot);
+//       this.player2.hand.push(...this.pot);
+//       console.log(this.player2.hand.length);
+//    }
+//    if (this.player1.hand.length === 0) {
+//       console.log("Player 2 wins");
+//    } else if (this.player2.hand.length === 0) {
+//       console.log("Player 1 wins");
+//    }
+// };
+
 Game.prototype.war = function () {
-   // credit to Eric
-   alert("war is running");
-   const player1WarCards = this.player1.hand.splice(0, 3);
-   const player2WarCards = this.player2.hand.splice(0, 3);
+   // Each player adds three cards to the pot
+   this.pot.push(
+      this.player1.hand.shift(),
+      this.player1.hand.shift(),
+      this.player1.hand.shift()
+   );
+   this.pot.push(
+      this.player2.hand.shift(),
+      this.player2.hand.shift(),
+      this.player2.hand.shift()
+   );
 
-   this.pot = this.pot.concat(player1WarCards, player2WarCards);
-   console.log(this.pot);
-   // console.log(this.player1.hand.length, this.player2.hand.length);
+   // Compare the next card in each player's hand
+   var card1 = this.player1.hand.shift();
+   var card2 = this.player2.hand.shift();
 
-   if (player1WarCards[2] === player2WarCards[2]) {
-      // console.log("player1 war hand: " + player1Card);
-      // console.log("player2 war hand: " + player2Card);
-      console.log("tie again");
-      this.war();
-      // this.pot.push(player1Card, player2Card);
-   } else if (player1WarCards[2] > player2WarCards[2]) {
-      // console.log("player1 war hand: " + player1Card);
-      // console.log("player2 war hand: " + player2Card);
-      console.log("player 1 wins war");
-      console.log(this.player1.hand.length);
-      console.log(this.pot);
-      // console.log(player1.hand.push(this.pot));
-      // this.pot =[];
+   // Add the cards to the pot
+   this.pot.push(card1, card2);
 
-      this.player1.hand.push(...this.pot, player1Card, player2Card);
-   } else {
-      // console.log("player1 war hand: " + player1Card);
-      // console.log("player2 war hand: " + player2Card);
-      console.log("player 2 wins war");
-      console.log(this.player2.hand.length);
-      console.log(this.pot);
-      this.player2.hand.push(...this.pot, player1Card, player2Card);
+   // If player 1's card is higher, they win the pot
+   if (card1.value > card2.value) {
+      this.player1.hand.push(...this.pot);
+      this.pot = [];
+      return "Player 1 wins the war!";
    }
-   if (this.player1.hand.length === 0) {
-      console.log("Player 2 wins");
-   } else if (this.player2.hand.length === 0) {
-      console.log("Player 1 wins");
+
+   // If player 2's card is higher, they win the pot
+   if (card2.value > card1.value) {
+      this.player2.hand.push(...this.pot);
+      this.pot = [];
+      return "Player 2 wins the war!";
    }
+
+   // If the cards are equal, repeat the war process recursively
+   return this.war();
 };
 
 Game.prototype.shuffle = function () {
